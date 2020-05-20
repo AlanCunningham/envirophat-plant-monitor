@@ -3,13 +3,13 @@ import subprocess
 from envirophat import light, weather, analog
 from datetime import datetime
 from django.core.management.base import BaseCommand, CommandError
-from monitor.models import SensorData
+# from monitor.models import SensorData
 
 class Command(BaseCommand):
 
     help = "Gets sensor data from the envirophat and saves to the database"
 
-    def get_calibrated_temperature():
+    def get_calibrated_temperature(self):
         """
         The temperature of the Raspberry Pi CPU can affect the envirophat
         sensor. We try to factor this in using the following formula:
@@ -25,25 +25,19 @@ class Command(BaseCommand):
         return int(calibrated_temperature)
 
     def handle(self, *args, **options):
-        # Convert light level to a percentage
-        light_sensor_max = 65535
-        light_level = int(light.light() / light_sensor_max * 100)
+        """
+        Log the temperature, light (normalised) and moisture (normalised) to
+        the database.
+        """
+        light_sensor_max = 1000
+        light_sensor_min = 0
+        light_level_normalised = (light.light()-light_sensor_min) / (light_sensor_max-light_sensor_min)
 
-        # Convert moisture level to a percentage
-        moisture_sensor_max = 4.016
-        soil_moisture  = int(analog.read(0) / moisture_sensor_max * 100)
+        moisture_sensor_max = 4.455
+        moisture_sensor_min = 0
+        soil_moisture  = (analog.read(0)-moisture_sensor_min) / (moisture_sensor_max-moisture_sensor_min)
 
-        temperature = get_calibrated_temperature()
-        timestamp = datetime.now().strftime("%d %b    %H:%M")
-
-        print(f"Date: {timestamp}")
-        print(f"Light level: {light_level}")
+        temperature = self.get_calibrated_temperature()
+        print(f"Light level: {light_level_normalised}")
         print(f"Temperature: {temperature}")
         print(f"Soil moisture: {soil_moisture}")
-
-        sensor_data = {
-            'timestamp': timestamp,
-            'light_level': light_level,
-            'temperature': temperature,
-            'soil_moisture': soil_moisture,
-        }
