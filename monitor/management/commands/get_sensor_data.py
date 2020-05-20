@@ -3,7 +3,8 @@ import subprocess
 from envirophat import light, weather, analog
 from datetime import datetime
 from django.core.management.base import BaseCommand, CommandError
-# from monitor.models import SensorData
+from monitor.models import SensorData
+
 
 class Command(BaseCommand):
 
@@ -17,11 +18,12 @@ class Command(BaseCommand):
         https://medium.com/@InitialState/tutorial-review-enviro-phat-for-raspberry-pi-4cd6d8c63441
         """
         FACTOR = 1.5
-        pi_temp_output = subprocess.run(["vcgencmd", 'measure_temp'],
-            capture_output=True).stdout
+        pi_temp_output = subprocess.run(
+            ["vcgencmd", "measure_temp"], capture_output=True
+        ).stdout
         pi_temp = float(str(pi_temp_output).split("=")[1].split("'")[0])
         env_temp = weather.temperature()
-        calibrated_temperature = env_temp-((pi_temp-env_temp)/FACTOR)
+        calibrated_temperature = env_temp - ((pi_temp - env_temp) / FACTOR)
         return int(calibrated_temperature)
 
     def handle(self, *args, **options):
@@ -31,13 +33,24 @@ class Command(BaseCommand):
         """
         light_sensor_max = 1000
         light_sensor_min = 0
-        light_level_normalised = (light.light()-light_sensor_min) / (light_sensor_max-light_sensor_min)
+        light_normalised = (light.light() - light_sensor_min) / (
+            light_sensor_max - light_sensor_min
+        )
 
         moisture_sensor_max = 4.455
         moisture_sensor_min = 0
-        soil_moisture  = (analog.read(0)-moisture_sensor_min) / (moisture_sensor_max-moisture_sensor_min)
+        moisture_normalised = (analog.read(0) - moisture_sensor_min) / (
+            moisture_sensor_max - moisture_sensor_min
+        )
 
-        temperature = self.get_calibrated_temperature()
-        print(f"Light level: {light_level_normalised}")
-        print(f"Temperature: {temperature}")
-        print(f"Soil moisture: {soil_moisture}")
+        temperature_calibrated = self.get_calibrated_temperature()
+        print(f"Light level: {light_normalised} | ({light.light()})")
+        print(f"Temperature: {temperature_calibrated}")
+        print(f"Soil moisture: {moisture_normalised}")
+
+        sensor_data = SensorData(
+            temperature=temperature_calibrated,
+            moisture=moisture_normalised,
+            light=light_normalised,
+        )
+        sensor_data.save()
