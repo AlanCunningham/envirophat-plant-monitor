@@ -1,8 +1,9 @@
 from django.http import HttpResponse
 from django.views import View
+from django.views.generic import TemplateView
 from django.shortcuts import render
 
 
-class GraphPageView(View):
-    def get(self, request):
-        return HttpResponse("Hello Alan")
+class GraphPageView(TemplateView):
+
+    template_name = "graph.html"
