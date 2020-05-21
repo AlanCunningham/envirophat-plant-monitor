@@ -12,7 +12,6 @@ function display_chart(data) {
         list_of_light.push(data.sensor_data[index].light);
         list_of_moisture.push(data.sensor_data[index].moisture);
     }
-    console.log(list_of_temps);
 
     var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -95,7 +94,6 @@ function get_stats() {
         type: 'GET',
         dataType: 'json',
         success: function(result) {
-            console.log(result);
             display_chart(result);
         },
         error: function(result) {
