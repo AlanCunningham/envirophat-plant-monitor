@@ -43,7 +43,7 @@ class Command(BaseCommand):
             moisture = 0.5
             light_level = 0.7
         else:
-            light_sensor_max = 1000
+            light_sensor_max = 65535
             light_sensor_min = 0
             light_level = (light.light() - light_sensor_min) / (
                 light_sensor_max - light_sensor_min
