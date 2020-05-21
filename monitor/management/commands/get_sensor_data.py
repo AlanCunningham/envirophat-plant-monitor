@@ -41,7 +41,7 @@ class Command(BaseCommand):
             # Just put some dummy data in
             temperature = 10
             moisture = 0.5
-            light_level = 0.7
+            light_level = 1.0
         else:
             light_sensor_max = 65535
             light_sensor_min = 0
