@@ -1,1 +1,19 @@
-<h1>Hello Alan</h1>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <title>Plant stats</title>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+</head>
+
+<body>
+    <canvas id="myChart" width="800" height="480"></canvas>
+    <script src='https://code.jquery.com/jquery-3.4.1.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js'></script>
+    <script src="{% static 'monitor/js/plantChart.js' %}"></script>
+</body>
+
+</html>
