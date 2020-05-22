@@ -2,6 +2,9 @@
 
 A lightweight plant monitor server for [Pimoroni's EnviroPhat](https://github.com/pimoroni/enviro-phat), written in Django.
 
+<img src="https://github.com/AlanCunningham/envirophat-plant-monitor/blob/master/readme_images/plant.jpg?raw=true" width="30%">  <img src="https://github.com/AlanCunningham/envirophat-plant-monitor/blob/master/readme_images/graph.png?raw=true" width="60%">
+
+
 ## Before you start
 - Install the Envirophat dependencies using [Pimoroni's Envirophat installation guide](https://github.com/pimoroni/enviro-phat)
 - Install [virtualenv](https://virtualenv.pypa.io/en/latest/installation.html)
