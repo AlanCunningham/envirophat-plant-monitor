@@ -21,7 +21,7 @@ virtualenv --system-site-packages -p python3 venv
 source venv/bin/activate
 
 # Install the python dependencies using the requirements.txt file provided
-pip install -r requirements
+pip install -r requirements.txt
 
 # Create a cronjob to get data from the Enviro pHAT sensor once an hour
 crontab -e
