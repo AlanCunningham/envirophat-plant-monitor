@@ -7,7 +7,7 @@ except:
     running_on_raspberry_pi = False
 
 
-def get_calibrated_temperature(self):
+def get_calibrated_temperature():
     """
     The temperature of the Raspberry Pi CPU can affect the envirophat
     sensor. We try to factor this in using the following formula:
