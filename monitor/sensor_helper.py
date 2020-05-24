@@ -32,8 +32,8 @@ def get_sensor_data():
     if not running_on_raspberry_pi:
         # Just use dummy data
         temperature = 10
-        moisture = 0.5
-        light_level = 1.0
+        moisture = 0.56666999
+        light_level = 0.988887
     else:
         # Get normalised light data
         light_sensor_max = 65535
@@ -51,7 +51,7 @@ def get_sensor_data():
         temperature = get_calibrated_temperature()
     sensor_data = {
         "temperature": temperature,
-        "moisture": moisture,
-        "light": light_level,
+        "moisture": round(moisture, 2),
+        "light": round(light_level, 2),
     }
     return sensor_data
