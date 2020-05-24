@@ -79,7 +79,7 @@ function display_chart(data) {
                 position: 'bottom'
             },
             title: {
-                display: true,
+                display: false,
                 // text: current_temp + "°",
                 text: "Apache Chilli Plant",
                 fontSize: 100,
@@ -90,11 +90,25 @@ function display_chart(data) {
 
 function get_stats() {
     $.ajax({
-        url: '/monitor/sensordata/',
+        url: '/monitor/sensor_data_history/',
         type: 'GET',
         dataType: 'json',
         success: function(result) {
             display_chart(result);
+        },
+        error: function(result) {
+            console.log("Failed");
+        }
+    })
+
+    $.ajax({
+        url: '/monitor/sensor_data_current/',
+        type: 'GET',
+        dataType: 'json',
+        success: function(result) {
+            $("#current-temp").text(result.temperature);
+            $("#current-moisture").text(result.moisture);
+            $("#current-light").text(result.light);
         },
         error: function(result) {
             console.log("Failed");

@@ -5,14 +5,43 @@
 
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Plant stats</title>
     <link rel="stylesheet" type="text/css" href="{% static 'monitor/vendor/Chart.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'monitor/vendor/materialize.min.css' %}">
 </head>
 
 <body>
+    <nav class="light-blue lighten-1" role="navigation">
+        <div class="nav-wrapper container">
+            <a id="logo-container" href="#" class="brand-logo center">Apache Chilli Plant</a>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row center">
+            <div class="col s4">
+                <!-- Temperature -->
+                <h1><i class="material-icons medium red-text">whatshot</i></h1>
+                <h1 id="current-temp" class="red-text"/>
+            </div>
+            <div class="col s4">
+                <!-- Light -->
+                <h1><i class="material-icons medium yellow-text">brightness_5</i></h1>
+                <h1 id="current-light" class="yellow-text"/>
+            </div>
+            <div class="col s4">
+                <!-- Moisture -->
+                <h1><i class="material-icons medium blue-text">invert_colors</i></h1>
+                <h1 id="current-moisture" class="blue-text"/>
+            </div>
+        </div>
+    </div>
     <canvas id="myChart" width="800" height="480"></canvas>
     <script src="{% static 'monitor/vendor/jquery-3.5.1.min.js' %}"></script>
     <script src="{% static 'monitor/vendor/Chart.min.js' %}"></script>
+    <script src="{% static 'monitor/vendor/materialize.min.js' %}"></script>
     <script src="{% static 'monitor/js/plantChart.js' %}"></script>
 </body>
 

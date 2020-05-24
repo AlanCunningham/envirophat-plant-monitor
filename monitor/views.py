@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.utils.timezone import now
 from datetime import timedelta
 from monitor.models import SensorData
+from . import sensor_helper
 
 
 class GraphPageView(TemplateView):
@@ -12,7 +13,10 @@ class GraphPageView(TemplateView):
     template_name = "graph.html"
 
 
-class SensorDataView(TemplateView):
+class SensorDataHistoryView(TemplateView):
+    """
+    Get a historical view of sensor data from the SensorData model.
+    """
 
     model = SensorData
 
@@ -23,3 +27,13 @@ class SensorDataView(TemplateView):
         for item in sensor_data:
             item["datetime"] = item["datetime"].strftime("%a %d %H:%M")
         return JsonResponse({"sensor_data": list(sensor_data)})
+
+
+class SensorDataCurrentView(TemplateView):
+    """
+    Get the current sensor readings.
+    """
+
+    def get(self, *args, **kwargs):
+        sensor_data = sensor_helper.get_sensor_data()
+        return JsonResponse(sensor_data)
