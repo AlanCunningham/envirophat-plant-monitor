@@ -18,7 +18,7 @@ class SensorDataView(TemplateView):
 
     def get(self, *args, **kwargs):
         sensor_data = SensorData.objects.filter(
-            datetime__gte=now()-timedelta(days=3)
+            datetime__gte=now()-timedelta(days=2)
         ).values()
         for item in sensor_data:
             item["datetime"] = item["datetime"].strftime("%a %d %H:%M")
