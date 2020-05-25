@@ -53,7 +53,10 @@ function display_chart(data) {
                     id: 'y-temp',
                     ticks: {
                         beginAtZero: true,
-                        // suggestedMax: 30,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Temperature °c",
                     }
                 }, {
                     type: 'linear',
@@ -62,8 +65,7 @@ function display_chart(data) {
                     id: 'y-light',
                     ticks: {
                         beginAtZero: true,
-                        // suggestedMax: 100,
-                    }
+                    },
                 }, {
                     type: 'linear',
                     display: true,
@@ -71,7 +73,10 @@ function display_chart(data) {
                     id: 'y-moisture',
                     ticks: {
                         beginAtZero: true,
-                        // suggestedMax: 100,
+                    },
+                    scaleLabel: {
+                        display: true,
+                        labelString: "Light  /  Moisture"
                     }
                 }]
             },
